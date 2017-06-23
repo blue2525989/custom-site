@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+	<!-- title, auther meta tag, enable mobile view -->
+	<title>My Company</title>
+	<meta name="author" content="Jason Bierbrauer"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+	<!-- angularJS -->
+	<meta http-equiv="Content-Type" context="text/html; charset=UTF-8" />	
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<!-- AWS SDK for Javascript -->
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.20.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>   
+	<!-- bootstrapJS -->
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	<!-- CSS styling -->
+	<link href="css/style.css" rel="stylesheet"/>
+</head>
+    <body>
+       
+<!--  header -->
+			<header th:fragment="header">
+			
+			</header>
+			
+			<!-- nav bar layout version 2 -->
+			 <nav th:fragment="nav" class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+		      <button class="navbar-toggler navbar-toggler-right" type="button" 
+		      	data-toggle="collapse" data-target="#navbar" 
+		      	aria-controls="navbar" aria-expanded="false" 	
+		      	aria-label="Toggle navigation">
+		      	
+		        <span class="navbar-toggler-icon"></span>
+		      </button>
+		      <div class="collapse navbar-collapse" id="navbar">
+		        <ul class="navbar-nav mr-auto">
+		          <li class="nav-item active">
+		            <a class="nav-link" href="/">Home</a>
+		          </li>
+		          
+		          <li class="nav-item active">
+		            <a class="nav-link" href="/services">Services</a>
+		          </li>
+		          
+		          <li class="nav-item active">
+		            <a class="nav-link" href="/about">About us</a>
+		          </li>
+		          
+		          <li class="nav-item active">
+		            <a class="nav-link" href="/contact">Contact</a>
+		          </li>
+		          
+		          <li class="nav-item active">
+		            <a class="nav-link" href="/gallery">Gallery</a>
+		          </li>
+		          
+		          <li th:if="${session.adminrole == true}" class="nav-item active">
+		            <a class="nav-link" href="/admin">Admin</a>
+		          </li>
+	
+				  <li th:if="${session.adminrole == true}" class="nav-item active">
+		            <a class="nav-link" href="/login">Login/Logout</a>
+		          </li>
+		          
+		        </ul>
+		        
+		      </div>
+		    </nav>
+		    
+     
+		    
+		    <!-- jumbotron-->
+		    <div th:fragment="jumbotron" 
+		    class="jumbotron" style="background-image:  url(${session.jumboMain.url})">
+		      <div class="container" th:unless="${session.jumboMain == null}">
+		        <h1 class="display-3" th:text="${session.jumboMain.headline}">headline</h1>
+		        <p th:text="${session.jumboMain.content}">
+		        This is an opportunity to talk about some of the services that your company can offer to your clients
+		        Also if you have your own company banner already, that can be used instead of this generic one.
+		         The button below will take you to the page describing the services in depth.</p>
+		        <p><a class="btn btn-primary btn-lg" href="/services" role="button">Learn more &raquo;</a></p>
+		      </div>
+		      
+		      <div class="jumbotron" th:if="${session.jumboMain == null}">
+				<p>You have no JumboTron saved</p><br/>
+			  </div>
+		      
+		    </div>
+		    
+		    
+		    
+		    
+		   
+		
+				<!-- sample code for dropdown menu items -->
+			      <ul>              
+		          <li class="nav-item dropdown">
+				    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
+				    <div class="dropdown-menu">
+		              <a class="dropdown-item" href="/blueDB">Database Management</a>
+		              <a class="dropdown-item" href="/encrypter">Text Encryption</a>
+		              <a class="dropdown-item" href="/poker">Card Games</a>
+		              <a class="dropdown-item" th:if="${session.adminrole == true}"
+						 href="/adminpage">Admin Page</a>
+				    </div>
+				  </li>
+				  
+		          <li class="nav-item dropdown">
+				    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Misc</a>
+				    <div class="dropdown-menu">
+				      <a class="dropdown-item" href="/login">Login/Logout</a>
+				      <a class="dropdown-item" href="/createlogin">Create Login</a>		      
+		              <a class="dropdown-item" href="/guestbook">Guest book</a>
+		              <a class="dropdown-item" href="/hobbies">Hobbies</a>
+					  <a class="dropdown-item" href="/th-math">Calculator</a>
+					  <a class="dropdown-item" href="/textfun">Messing around with words</a>
+				    </div>
+				  </li>
+		          </ul>
+		          
+		     <!-- start of footer -->
+			 <footer th:fragment="footer">
+			     <!-- picture of my goat. -->
+			     <!-- paragraph tag with class tag for style.css -->
+			     <p class="footer">Website
+			     <!-- secret link for administration login -->			     
+			     <a class="secret" href="/login">#</a>
+			      design by: Jason Bierbrauer</p>
+			     <p class="footer">Contact information: <a href="mailto:jbierbrauer99@gmail.com">
+			         jbierbrauer99@gmail.com</a>.</p>
+			     
+			</footer>
+    </body>
+</html>

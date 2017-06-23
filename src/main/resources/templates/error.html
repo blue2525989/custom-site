@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments::head"></head>
+    <body>
+	
+	<nav th:replace="fragments::nav"></nav>
+	
+    <!-- jumbotron-->
+    <div th:replace="fragments::jumbotron">
+    </div>
+    
+	<!-- can print javaScript to tags with ids -->
+	<div id="results"></div>
+	
+				
+    <div class="container">
+	
+   		 <div align="center">
+   		 
+			<h1>Opps!</h1>
+			
+			<a href="/"><button>Back to home page</button></a>
+			
+				<p>
+				You have managed to make it to this page because of an error. Please return home.
+		 		</p>
+		 		
+		  </div>
+		  
+	</div>
+	<!-- put script at bottom of page for now -->
+	<script src="js/fun01.js"></script>
+       <!-- start of footer -->
+ 	<footer th:replace="fragments :: footer"></footer>
+	
+
+    </body>
+</html>

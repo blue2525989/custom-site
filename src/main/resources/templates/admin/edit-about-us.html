@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments::head"></head>
+    <body>
+	
+	<nav th:replace="fragments::nav"></nav>
+		
+	<div class="container">
+	
+	<!-- adding date from script -->
+	<div align="center"><span id="date"></span></div><br/><br/>
+		
+	 <!-- administration menu, hard coded so wont confuse fragments.html-->
+		    <nav id="admin">
+				<hr/>
+				<ul>
+							
+				<li><a href="/admin"><button type="button" class="btn btn-success">
+					Administration page</button></a></li>
+				<li><a href="/edit-home"><button type="button" class="btn btn-success">
+					Edit Home page</button></a></li>
+				<li><a href="/edit-services"><button type="button" class="btn btn-success">
+					Edit Services page</button></a></li>
+				<li><a href="/edit-about"><button type="button" class="btn btn-success">
+					Edit  About us page</button></a></li>
+				<li><a href="/edit-contact"><button type="button" class="btn btn-success">
+					Edit Contact page</button></a></li>
+				<li><a href="/edit-gallery"><button type="button" class="btn btn-success">
+					Edit gallery page</button></a></li>
+				<li><a href="/upload-page"><button type="button" class="btn btn-success">
+					Upload images</button></a></li>
+				</ul>
+				<hr/>
+			</nav>
+	
+		<hr/>
+
+
+		<!-- form for editing headline and content-->
+		<form action="/edit-about/edit-about-content" method="post">        
+       		<div class="form-group">
+			  <label class="col-3 col-form-label">Enter a Headline.</label>
+			  <br/>
+			  <div class="col-6">
+			    <input class="form-control" type="text" placeholder="Catchy Headline" name="headline"
+			     required="required" data-error="Headline is required." />
+			     <div class="help-block with-errors"></div>
+			  </div>
+			</div>
+			
+			<div class="form-group">
+			    <label class="col-3">Enter a paragraph to get the client attention.</label>
+			    <br/>
+			    <textarea class="form-control col-6" name="content" rows="4"
+			    required="required" data-error="Content is required." ></textarea>
+			    <div class="help-block with-errors"></div>
+			  </div>
+			   <!-- add image from bucket-->
+		        <select name="url">
+		            <option th:each="image : ${session.imageList}"
+		                    th:text="${image.name}"
+		                    th:value="${image.url}"></option>
+		        </select>
+			  
+             <button type="submit" class="btn btn-success">Edit Paragraph</button> 
+        </form> 
+        
+        <br/><br/>
+        <!-- delete based on ID -->
+        	<h2>Delete entry based on ID number</h2>
+			<form action="/delete-about-content" method="GET">
+				<label for="ID">ID:</label><br />
+				<input type="text" name="ID" size="50" class="ID"  
+				required="required" data-error="ID is required." />
+				<div class="help-block with-errors"></div><br />	
+				<h3>Click this button to delete entry</h3><br />
+				<button type="submit" id="button">Delete</button>
+				<br />
+			</form>
+				
+		<br/><br/>
+
+		<!-- list all for figuring out ID -->				
+			<h2>List all</h2>
+			<form action="/list-about-content" method="GET">
+				<button type="submit" id="button">List all</button><br />
+			</form>
+				
+				
+		<br/><br/><hr/>
+		
+	
+	
+	
+	
+	<!-- end container -->
+	</div>
+	<!-- put script at bottom of page for now -->
+	<script src="js/fun01.js"></script>
+       <!-- start of footer -->
+ 	<footer th:replace="fragments :: footer"></footer>
+	
+
+    </body>
+</html>

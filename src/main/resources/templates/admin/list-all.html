@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments::head"></head>
+    <body>
+	
+	<nav th:replace="fragments::nav"></nav>
+		
+	<div class="container">
+	
+	<!-- adding date from script -->
+	<div align="center"><span id="date"></span></div><br/><br/>
+		
+	 <!-- administration menu, hard coded so wont confuse fragments.html-->
+		    <nav id="admin">
+				<hr/>
+				<ul>
+							
+				<li><a href="/admin"><button type="button" class="btn btn-success">
+					Administration page</button></a></li>
+				<li><a href="/edit-home"><button type="button" class="btn btn-success">
+					Edit Home page</button></a></li>
+				<li><a href="/edit-services"><button type="button" class="btn btn-success">
+					Edit Services page</button></a></li>
+				<li><a href="/edit-about"><button type="button" class="btn btn-success">
+					Edit  About us page</button></a></li>
+				<li><a href="/edit-contact"><button type="button" class="btn btn-success">
+					Edit Contact page</button></a></li>
+				<li><a href="/edit-gallery"><button type="button" class="btn btn-success">
+					Edit gallery page</button></a></li>
+				<li><a href="/upload-page"><button type="button" class="btn btn-success">
+					Upload images</button></a></li>
+				</ul>
+				<hr/>
+			</nav>
+					<hr/>
+
+			<article>
+		
+					<div th:unless="${#lists.isEmpty(listMain)}">
+						<dl th:each="update : ${listMain}">
+						<dt>	
+							<label>ID:</label>
+							<span th:if="${update.id}" th:text="${update.id}">ID: </span> <br/>
+							<span th:if="${update.id eq null}">No ID available</span> <br/>	
+							
+							<label>Headline:</label>
+							<span th:if="${update.headline}" th:text="${update.headline}">Headline: </span> <br/>
+							<span th:if="${update.headline eq null}">No headline available</span> <br/>
+							
+							<label>Content:</label>
+							<span th:if="${update.content}" th:text="${update.content}">Content: </span> <br/>
+							<span th:if="${update.content eq null}">No content available</span> <br/>
+
+						</dt>
+						</dl>
+					</div>
+					
+					<div th:if="${#lists.isEmpty(listMain)}">	
+						<p>You have no updates...</p>
+					</div>
+					
+					<hr/>
+				</article>
+	
+	
+	
+	
+	</div>
+	<!-- put script at bottom of page for now -->
+	<script src="js/fun01.js"></script>
+       <!-- start of footer -->
+ 	<footer th:replace="fragments :: footer"></footer>
+	
+
+    </body>
+</html>

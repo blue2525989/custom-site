@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments::head"></head>
+    <body>
+	
+	<nav th:replace="fragments::nav"></nav>
+	<!-- jumbotron-->
+    <div th:replace="fragments::jumbotron">
+    </div>
+    
+    
+	<!-- can print javaScript to tags with ids -->
+	<div id="results"></div>
+	
+	<div class="container">
+	
+	<!-- change this to a model and pass as a list -->
+	<!-- first feature -->
+	
+	 <hr class="featurette-divider"/>
+
+      <div class="row featurette">
+        <div class="col-md-7" th:unless="${session.service1 == null}">
+          <h2 class="featurette-heading" th:text="${session.service1.headline}">
+          What your companies best at.</h2>
+          <p class="lead" th:text="${session.service1.content}">
+          	Here is a paragraph where you can describe something very interested. Talk about 
+          	what you have to offer the customer. Draw them in and generate some revenue!
+          </p>
+        </div>
+        <div class="col-md-5">
+
+        <!-- add the image from bucket -->
+        <img th:attr="src=${session.service1.url},title=${session.service1.url},alt=${session.service1.headline}"/><br/>
+           </div>
+      </div>     
+      
+        <div th:if="${session.service1 == null}">
+			<p>You have no bottom feature saved</p><br/>
+		</div> 
+		
+	 <hr class="featurette-divider"/>
+	 
+	 	<!-- second feature-->
+	
+
+      <div class="row featurette">
+        <div class="col-md-7 push-md-5" th:unless="${session.service2 == null}">
+          <h2 class="featurette-heading" th:text="${session.service2.headline}">
+          Another Service my company offers!</h2>
+          <p class="lead" th:text="${session.service2.content}">
+          	Go ahead and describe another service that your company provides to help generate 
+          	more business. You can also have an image that show cases your service in action. 
+          	Grow your money by great marketing!
+          </p>
+        </div>
+        <div class="col-md-5 pull-md-7">
+
+        <!-- add the image from bucket -->
+        <img th:attr="src=${session.service2.url},title=${session.service2.url},alt=${session.service2.headline}"/><br/>
+           </div>
+      </div>     
+      
+        <div th:if="${session.service2 == null}">
+			<p>You have no bottom feature saved</p><br/>
+		</div> 
+		
+	 <hr class="featurette-divider"/>
+	
+	</div>
+
+	<!-- put script at bottom of page for now -->
+	<script src="js/fun01.js"></script>
+       <!-- start of footer -->
+ 	<footer th:replace="fragments :: footer"></footer>
+	
+
+    </body>
+</html>
